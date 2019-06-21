@@ -5,4 +5,4 @@ This script will generate two .txt files, the first containing all the organizat
 
 Requirements:
 - Python2 or 3 installed
-- Meraki module installed (can be installed via PIP)
+- Meraki module installed (can be installed via PIP) https://pypi.org/project/meraki/
