@@ -1,3 +1,5 @@
+#!usr/bin/env
+
 from meraki import meraki
 import csv
 from datetime import datetime
