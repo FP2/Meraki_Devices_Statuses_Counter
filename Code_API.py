@@ -14,7 +14,7 @@ offline_counter_lst = []  # all orgs offline devices
 
 try:
     # API Key.
-    KEY = 'db977e503984058237f9bfbbaf91a5e67d0dbe20'
+    KEY = <API KEY>
     try:
         # getting all organizations
         orgs = meraki.myorgaccess(KEY)
