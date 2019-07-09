@@ -7,8 +7,6 @@ import requests
 
 logging.basicConfig(filename='Devices_Counter.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
-logging.info('Modules imported successfully')
-
 org_ids = []  # all org_ids
 org_names = []  # all org names
 online_counter_lst = []  # all orgs online devices
@@ -16,16 +14,14 @@ offline_counter_lst = []  # all orgs offline devices
 
 try:
     # API Key.
-    KEY = <API KEY>
+    KEY = 'db977e503984058237f9bfbbaf91a5e67d0dbe20'
     try:
         # getting all organizations
         orgs = meraki.myorgaccess(KEY)
-
-        # creating 2 lists containing the ids and names of all orgs
+        # creating 2 lists containing the ids and names of all org
         for org in orgs:
             org_ids.append(org.get('id'))
             org_names.append(org.get('name'))
-
     except meraki.OrgPermissionError:
         error_text = 'No permission to access organization.'
         logging.error('{}'.format(error_text))
@@ -33,29 +29,24 @@ try:
 
     # Creating list of tuples
     org_names_ids = sorted(list(zip(org_names, org_ids)))
-
     # Excluding unnecessary org for this project
     org_names_ids.__delitem__(4)
     org_names_sorted = sorted(org_names)
     org_names_sorted.__delitem__(4)
-    print(org_names_ids)
-
+   
     # Getting all devices statuses
     for i in org_names_ids:
         status = meraki.get_device_statuses(KEY, i[1])
         print("Scanning {} - {}".format(i[0], i[1]))
         online_counter = 0
         offline_counter = 0
-
         # Counting online and offline devices for each org
         for item in status:
             if item.get('status') == 'online':
                 online_counter += 1
             elif item.get('status') == 'offline':
                 offline_counter += 1
-
         logging.info('Scanned {} successfully'.format(i[0]))
-
         online_counter_lst.append(online_counter)
         offline_counter_lst.append(offline_counter)
 
